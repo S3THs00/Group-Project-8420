@@ -10,7 +10,7 @@ Our team is evaluating OpenEMR from a software assurance and systems security en
 
 **OpenEMR**
 
-OpenEMR is an open-source electronic health record (EHR) and medical practice management system.
+OpenEMR is a free and Open Source electronic health records and medical practice management application. It is ONC Certified and it features fully integrated electronic health records, practice management, scheduling, electronic billing, internationalization, free support, a vibrant community, and a whole lot more. It can run on Windows, Linux, Mac OS X, and many other platforms. OpenEMR core features include patient demographics and scheduling, electronic medical records, prescriptions, medical billing, patient portal, reports, language and community support. Its primary languages are PHP, Javascript, Shell, Ruby and SCSS. OpenEMR is supported by the OpenEMR Foundation, a nonprofit entity that holds the ONC HER Certification with SLI Compliance. 
 
 ## Proposed Security Focus
 
