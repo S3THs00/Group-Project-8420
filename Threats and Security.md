@@ -38,12 +38,12 @@ examples of these threats are:
        - Protects logs from tampering or disclosure by encrypting audit log tables.
 4. **Audit logging**
 - The OpenEMR aduit trails meets HIPSS logging requirements by tracking key events such as:
-  a. Logins and logouts 
- b. Session timeouts
- c. Account lockouts 
- d. Patient record creation, view, update, and deletion
- e. Appointments 
- f. Authentication failures
+  - a. Logins and logouts 
+  - b. Session timeouts
+  - c. Account lockouts 
+  - d. Patient record creation, view, update, and deletion
+  - e. Appointments 
+  - f. Authentication failures
 The logs contain user ID, timestamp, patient ID, and status
 5. **Session Management**
 The system has an “Idle Session Timeout” that logs off users if they are inactive, thus preventing unauthorized access.
