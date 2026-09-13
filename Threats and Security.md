@@ -25,7 +25,7 @@ examples of these threats are:
  - In an operational environment, it is possible to be under physical and environmental threats. If maintaining the OpenEMR servers locally in a data center, the servers could be subject to physical theft or events where environmental controls (HVAC, fire suppression, UPS) are not working properly. In the case of deploying the open-source software in the cloud, you do not have to worry about physical security; the cloud provider will take care of that, but you need to think about what happens if one of the cloud provider's regions goes out or is impacted by natural disasters, and how you can survive a region outage and still serve your patients.
 
 ## Security Features 
-- OpenEMR systems that generate, process, and maintain Health information must meet HIPAA/HITECH requirements and standards. The system is ONC (Office of the National Coordinator) Health IT certified and meets the same HIPAA standards to provide the same level of protection. Therefore, the security features of the system are compliant with HIPAA and align with ONC certification as follows:
+ - OpenEMR systems that generate, process, and maintain Health information must meet HIPAA/HITECH requirements and standards. The system is ONC (Office of the National Coordinator) Health IT certified and meets the same HIPAA standards to provide the same level of protection. Therefore, the security features of the system are compliant with HIPAA and align with ONC certification as follows:
 
 1. **Role-Based Access Control**
     - The system implements the least-privilege security principle, in which you access only the minimum required information to perform tasks.
