@@ -220,6 +220,61 @@ Hardware-backed MFA can reduce dependence on password-only authentication by req
 
 The proposal also builds on OpenEMR's existing security architecture rather than attempting to replace its authentication and authorization systems. This provides a more focused contribution that can be evaluated within the scope of the project.
 
+# Team Reflection
+
+## Seth Stutzman
+
+### What did you learn from this assignment?
+
+I learned that GitHub is much more similar to Jira than I had previously realized. I also learned how accessible contributing to large-scale open-source projects can be. With enough knowledge, effort, and time, almost anyone has the opportunity to make meaningful contributions to real-world software projects.
+
+### What did you find most useful?
+
+What I found most useful was learning how GitHub can be used as a project management tool, similar to Jira. Being able to create issues, define specific tasks, and assign them to individual team members really helps streamline group projects and makes it easier to keep track of everyone's responsibilities. Before this assignment, I realized that I had only been using a small portion of what GitHub has to offer.
+
+---
+
+## Jacob Wlinke
+
+### What did you learn from this assignment?
+
+I am gradually easing into group work and getting to know the team better. Because I don't use GitHub frequently outside of school, this assignment was a great opportunity to brush up on my version control skills and help build the "bones" of our repository. Beyond the tooling, I learned a tremendous amount about OpenEMR as a platform and the unique dynamics of its open-source ecosystem, particularly how a community-driven medical software project maintains compliance, releases, and documentation.
+
+### What did you find most useful?
+
+Setting up our infrastructure in GitHub and digging deep into OpenEMR's architecture will be immensely useful moving forward. Having our repository structured and understanding how OpenEMR operates gives us a clear head start. These preparatory steps ensure we won't be scrambling with tooling or domain knowledge when we transition into designing and implementing our actual feature addition.
+
+---
+
+## Erik Osmera
+
+### What did you learn from this assignment?
+
+I am still learning how to interact with the GitHub change management process. I am not a developer and only use GitHub for license reviews of code my dev team intends to onboard. I am also learning more about open-source contribution. I didn't realize how strict and professional some projects are. OpenEMR, for example, has tiers of developer roles with different privileges based on merit.
+
+### What did you find most useful?
+
+Interfacing with GitHub as it is intended to be used has been extremely useful knowledge for me. I am gaining a much better understanding of the process my development teams utilize.
+
+---
+
+## Trey Moore
+
+### What did you learn from this assignment?
+
+I learned about the structure and environment of OpenEMR and how to construct a proper systems engineering view of something that was somewhat familiar to me. That helped me better understand how to put together the engineering view. I also enjoyed getting into the major cybersecurity considerations for OpenEMR and looking at what actual healthcare providers were requesting to help shape our motivation.
+
+### What did you find most useful?
+
+The thing I found most useful was learning about all the systems that OpenEMR has and where to pinpoint specific areas. This helped me understand how to narrow the project into something we can accomplish within the project's timeframe while still making a useful and thoughtful contribution.
+
+---
+
+## Mai
+
+### Reflection
+
+My part was to find threats and security features regarding the open-source software. Our software is deployed in healthcare environments; through that, I came to understand that compliance requirements, such as HIPAA, have certain technical requirements that these systems must maintain in order to stay compliant and avoid violations.
 
 ## References
 
