@@ -220,9 +220,6 @@ Hardware-backed MFA can reduce dependence on password-only authentication by req
 
 The proposal also builds on OpenEMR's existing security architecture rather than attempting to replace its authentication and authorization systems. This provides a more focused contribution that can be evaluated within the scope of the project.
 
-## Team Reflection
-
-The team reflection will combine the individual reflections submitted by each group member regarding what was learned from the assignment and what each member found most useful.
 
 ## References
 
