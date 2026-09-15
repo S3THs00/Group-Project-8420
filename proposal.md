@@ -270,11 +270,13 @@ The thing I found most useful was learning about all the systems that OpenEMR ha
 
 ---
 
-## Mai
+## Mai Abdalla
 
 ### Reflection
 
 My part was to find threats and security features regarding the open-source software. Our software is deployed in healthcare environments; through that, I came to understand that compliance requirements, such as HIPAA, have certain technical requirements that these systems must maintain in order to stay compliant and avoid violations.
+
+I found it useful to work on a group-based project as it is nice to have different insights and ideas. Overall, it helps in improving soft skills like teamwork and time management as well.
 
 ## References
 
