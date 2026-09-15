@@ -39,7 +39,7 @@ This environment demonstrates that OpenEMR security depends not only on the appl
 
 **Figure 1. OpenEMR System of Interest and Environment of Operation**
 
-> Insert the team's OpenEMR systems-engineering diagram here.
+![OpenEMR System of Interest and Environment of Operation](OpenEMR-System-Diagram.png)
 
 ## OpenEMR Threats and Security
 
