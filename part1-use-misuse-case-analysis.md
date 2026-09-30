@@ -151,7 +151,8 @@ The following misuse cases were identified:
 
 The following diagram presents the Physician use cases, misuse cases, and associated security controls.
 
-<img width="1189" height="737" alt="Physician Use-Misuse Case Diagram" src="https://github.com/user-attachments/assets/08803e83-d4be-4358-8199-379093a6fda5" />
+<img width="1221" height="740" alt="image" src="https://github.com/user-attachments/assets/814bd0c5-f12c-4417-9c7f-1b4ce9d18c97" />
+
 
 ### Derived Security Requirements
 
