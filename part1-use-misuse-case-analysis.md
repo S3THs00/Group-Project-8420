@@ -109,11 +109,11 @@ The following diagram presents the Patient Portal use cases and associated misus
 
 The security requirements derived from the Patient Portal misuse-case analysis were compared with current OpenEMR functionality and documentation.
 
-- **SR-6 – Patient Multi-Factor Authentication:** Current OpenEMR development information identifies Patient Portal MFA as a capability that is not currently available. This requirement therefore represents a gap between the derived security requirement and current functionality.
-- **SR-7 – Patient Access Control:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-8 – Encrypted Communications:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-9 – Patient Session Timeout:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-10 – Authentication Audit Logging:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-6 – Patient Multi-Factor Authentication:** **Not Supported.** Current OpenEMR development information identifies Patient Portal MFA as a capability that is not currently available. Patient Portal authentication currently uses a username and password with optional reCAPTCHA.
+- **SR-7 – Patient Access Control:** **Supported.** OpenEMR's Patient Portal and API authorization mechanisms associate patient access with the authenticated patient's context and provide patient-specific authorization controls. Recent security work also demonstrates that OpenEMR treats cross-patient access as an authorization violation.
+- **SR-8 – Encrypted Communications:** **Supported.** OpenEMR security documentation recommends HTTPS for Internet-facing OpenEMR deployments, and its API documentation requires SSL/TLS for OAuth2 communications.
+- **SR-9 – Patient Session Timeout:** **Partially Supported.** OpenEMR provides configurable idle-session timeout functionality and implements session-management controls. However, the reviewed documentation does not clearly document a separate Patient Portal-specific inactivity timeout. This represents an area where the Patient Portal documentation could be clearer.
+- **SR-10 – Authentication Audit Logging:** **Partially Supported.** OpenEMR provides an auditing framework that includes login/logout, session timeout, account lockout, and other security-relevant events. However, current development work for Patient Portal MFA specifically identifies portal MFA success/failure audit logging as functionality that would need to be added with Patient Portal MFA.
 
 ### Sources
 
@@ -166,16 +166,16 @@ The following diagram presents the Physician use cases, misuse cases, and associ
 
 ### OpenEMR Alignment
 
-The security requirements derived from the Physician misuse-case analysis should be evaluated against current OpenEMR functionality and documentation.
+The security requirements derived from the Physician misuse-case analysis were compared with current OpenEMR functionality, documentation, and security guidance.
 
-- **SR-11 – Authentication and Session Security:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-12 – Session Cookie Protection:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-13 – Patient Record Access Control:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-14 – PHI Audit Logging:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-15 – Input and Database Security:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-16 – Output Encoding:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-17 – Electronic Prescription Authorization:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-18 – Prescription Re-authentication:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-11 – Authentication and Session Security:** **Supported.** OpenEMR provides multi-factor authentication for practitioner-side users and a configurable idle-session timeout. MFA currently requires users to enroll themselves and is not mandatory for all practitioner accounts by default.
+- **SR-12 – Session Cookie Protection:** **Supported in Principle.** OpenEMR's security and API documentation requires or recommends HTTPS/TLS for secure deployments and identifies HttpOnly and Secure cookies as appropriate mechanisms for protecting authentication information.
+- **SR-13 – Patient Record Access Control:** **Supported.** OpenEMR implements Access Control Lists (ACLs) and API authorization checks that restrict access to patient information according to assigned permissions.
+- **SR-14 – PHI Audit Logging:** **Supported.** OpenEMR's auditing functionality includes patient-record creation, viewing, updating, and deletion and records information including the date/time, event type, user identity, patient identifier, and outcome.
+- **SR-15 – Input and Database Security:** **Supported.** OpenEMR's codebase security guidance instructs developers to use binding/placeholders in SQL calls to prevent SQL injection and provides secure mechanisms for handling user-supplied data.
+- **SR-16 – Output Encoding:** **Supported.** OpenEMR's codebase security guidance provides output-encoding functions for HTML, attributes, text, and JavaScript contexts to reduce Cross-Site Scripting risks.
+- **SR-17 – Electronic Prescription Authorization:** **Partially Supported.** OpenEMR defines a `patients:rx` ACL for prescription functionality and uses it to restrict prescription access. However, a current OpenEMR security issue identifies an electronic-prescribing endpoint where authentication is enforced but the corresponding server-side authorization check is missing.
+- **SR-18 – Prescription Re-authentication:** **Not Identified.** OpenEMR provides authentication and access-control mechanisms for electronic prescribing; however, the review did not identify OpenEMR documentation or code establishing that a physician must re-authenticate immediately before submitting a sensitive electronic prescription. This requirement therefore represents an area where additional transaction-level authentication controls may be appropriate.
 
 ### Sources
 
@@ -220,17 +220,16 @@ The following diagram presents the Nurse use cases, misuse cases, and associated
 - **SR-22:** OpenEMR shall consistently enforce encounter-sensitivity authorization checks at encounter-related entry points.
 - **SR-23:** OpenEMR shall verify that a user is authorized to enter or modify prescription information before permitting the operation.
 - **SR-24:** OpenEMR shall maintain an audit log of prescription-related activities, including the user identity, action performed, affected record, and timestamp.
-
 ### OpenEMR Alignment
 
 The security requirements derived from the Nurse misuse-case analysis were compared with OpenEMR security guidance and implementation observations.
 
-- **SR-19 – SQL Injection Protection:** OpenEMR's codebase security guidance recommends using binding and placeholders for SQL calls involving user-supplied data, which aligns with the requirement for parameterized queries.
-- **SR-20 – XSS Protection:** OpenEMR's security guidance recommends appropriate output handling, including the use of `htmlspecialchars`, to reduce Cross-Site Scripting risks.
-- **SR-21 – Access Control:** OpenEMR implements role-based access controls; however, the analysis identified potential weaknesses in how authorization is enforced when lower-privileged users search for patient information.
-- **SR-22 – Encounter Sensitivity:** The analysis identified encounter-related functionality where sensitivity authorization checks may not be consistently enforced, potentially allowing lower-privileged users to access or modify sensitive encounter information.
-- **SR-23 – Prescription Authorization:** **[Verify against OpenEMR documentation/codebase.]**
-- **SR-24 – Audit Logging:** OpenEMR implements audit logging that records security-relevant information such as event date and time, event type, subject identity, and outcome.
+- **SR-19 – SQL Injection Protection:** **Supported.** OpenEMR's codebase security guidance recommends using binding and placeholders for SQL calls involving user-supplied data, which aligns with the requirement for parameterized queries.
+- **SR-20 – XSS Protection:** **Supported.** OpenEMR's security guidance provides output-encoding functions for safely presenting user-supplied content and reducing Cross-Site Scripting risks.
+- **SR-21 – Access Control:** **Partially Supported.** OpenEMR implements Access Control Lists (ACLs) for restricting access to patient information. However, authorization must be consistently enforced at each protected entry point to prevent lower-privileged users from accessing information outside their permissions.
+- **SR-22 – Encounter Sensitivity:** **Partially Supported.** OpenEMR provides ACL mechanisms capable of enforcing authorization restrictions, but consistent enforcement is required throughout encounter-related functionality.
+- **SR-23 – Prescription Authorization:** **Supported with Limitations.** OpenEMR defines a `patients:rx` permission for prescription functionality and applies prescription ACL checks in multiple areas of the application. Current OpenEMR security findings, however, demonstrate that authorization checks have not always been consistently applied to every prescription-related endpoint.
+- **SR-24 – Audit Logging:** **Supported.** OpenEMR implements audit logging for security-relevant activity. Audit records can include the event date and time, event type, user identity, patient identifier, and event outcome.
 
 ### Sources
 
