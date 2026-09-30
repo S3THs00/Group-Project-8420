@@ -29,7 +29,7 @@ Two intentional threat scenarios were identified:
 
 #### Intentional/Malicious Use-Misuse Case Diagram
 
-**[Insert intentional/malicious use-misuse case diagram here]**
+![Network and Security Environment Use-Misuse Case Diagram](OPENEMRdiagram.drawio.png)
 
 The intentional misuse analysis identifies risks involving both external credential attacks and deliberate abuse of legitimate access. OpenEMR security functions relevant to these scenarios include multi-factor authentication, login-attempt protection, Access Control Lists (ACLs), and security audit logging.
 
