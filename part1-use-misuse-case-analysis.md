@@ -179,7 +179,11 @@ The security requirements derived from the Physician misuse-case analysis were c
 
 ### Sources
 
-**[Add OpenEMR documentation/codebase sources used to verify SR-11 through SR-18.]**
+- [OpenEMR Multi-factor Authentication](https://www.open-emr.org/wiki/index.php/Multi-factor_Authentication)
+- [OpenEMR Securing OpenEMR]((https://www.open-emr.org/wiki/index.php/Securing_OpenEMR))
+- [OpenEMR Access Controls Listing](https://www.open-emr.org/wiki/index.php/Access_Controls_Listing)
+- [OpenEMR Administration Globals](https://www.open-emr.org/wiki/index.php/Administration_Globals)
+
 
 ---
 
