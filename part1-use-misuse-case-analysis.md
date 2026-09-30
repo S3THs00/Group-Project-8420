@@ -16,9 +16,9 @@ The Network and Security Environment includes the Internet/LAN, firewall, TLS ce
 
 This analysis focuses specifically on the interaction between OpenEMR and the authentication, access-control, session-security, and monitoring mechanisms within this environment. An essential interaction occurs when a user authenticates to OpenEMR and attempts to access system resources. OpenEMR verifies the user's identity, while access controls determine which functions and information the authenticated user is permitted to access.
 
-The analysis separates security risks into two categories: **intentional/malicious misuse** and **unintentional user actions**.
+The analysis considers both **intentional/malicious misuse** and **unintentional user actions**.
 
-### Intentional/Malicious Misuse
+### Use/Misuse Case Analysis
 
 The primary legitimate actor is an **Authorized User** who authenticates to OpenEMR and accesses resources permitted by the user's assigned privileges.
 
@@ -27,23 +27,13 @@ Two intentional threat scenarios were identified:
 - An **External Credential Attacker** does not possess legitimate OpenEMR access and attempts credential guessing or credential stuffing against the authentication mechanism to gain unauthorized access to an OpenEMR account.
 - A **Malicious Authenticated User** represents an employee or other legitimate user who intentionally abuses authorized access by attempting to access patient information or system functions outside the privileges or legitimate purpose of the account.
 
-#### Intentional/Malicious Use-Misuse Case Diagram
+Authorized users may also create security risks without malicious intent. For example, an employee using a shared workstation or check-in terminal may leave an authenticated OpenEMR session unattended. Another person could then access the active session without having to authenticate independently.
+
+The following diagram presents both the intentional and unintentional misuse scenarios and the OpenEMR security controls that mitigate the identified risks.
 
 ![Network and Security Environment Use-Misuse Case Diagram](OPENEMRdiagram.drawio.png)
 
-The intentional misuse analysis identifies risks involving both external credential attacks and deliberate abuse of legitimate access. OpenEMR security functions relevant to these scenarios include multi-factor authentication, login-attempt protection, Access Control Lists (ACLs), and security audit logging.
-
-### Unintentional User Security Risks
-
-Authorized users may also create security risks without malicious intent. For example, an employee using a shared workstation or check-in terminal may leave an authenticated OpenEMR session unattended. Another person could then access the active session without having to authenticate independently.
-
-This scenario differs from intentional misuse by the authorized user because the exposure results from user error rather than an attempt to circumvent OpenEMR security controls.
-
-#### Unintentional Use-Misuse Case Diagram
-
-**[Insert unintentional use-misuse case diagram here]**
-
-The unintentional misuse analysis considers how OpenEMR security controls can reduce the risk created when an authenticated session is inadvertently left accessible.
+The intentional misuse analysis identifies security controls including multi-factor authentication, login-attempt protection, Access Control Lists (ACLs), and security audit logging. The unintentional misuse analysis identifies idle session timeout and security audit logging as controls that reduce the risk associated with unattended authenticated sessions.
 
 ### Derived Security Requirements
 
@@ -55,14 +45,13 @@ The unintentional misuse analysis considers how OpenEMR security controls can re
 
 ### OpenEMR Alignment
 
-The intentional misuse analysis identified security requirements that align with functionality currently provided by OpenEMR:
+The security requirements derived from the misuse-case analysis align with functionality currently provided by OpenEMR:
 
 - **SR-1 – Multi-Factor Authentication:** OpenEMR provides multi-factor authentication functionality, including TOTP and U2F authentication methods.
 - **SR-2 – Login Attempt Protection:** OpenEMR provides brute-force login protections that can restrict repeated failed authentication attempts.
 - **SR-3 – Access Control:** OpenEMR uses Access Control Lists (ACLs) to restrict access according to assigned roles and privileges.
 - **SR-4 – Audit Logging:** OpenEMR provides security auditing functionality for recording security-relevant activity.
 - **SR-5 – Idle Session Timeout:** OpenEMR provides a configurable idle session timeout that terminates an authenticated session after a period of inactivity, reducing the risk associated with unattended workstations.
-
 
 ### Sources
 
@@ -73,129 +62,291 @@ The intentional misuse analysis identified security requirements that align with
 - [OpenEMR Auditing Documentation](https://www.open-emr.org/wiki/index.php/3.1_Auditing_in_OpenEMR)
 - [OpenEMR Administration Globals](https://www.open-emr.org/wiki/index.php/Administration_Globals)
 
+---
 
-## 2. External Health System
+## 2. Patient Portal
 
-**Assigned to: Erick**
+### Essential Interaction: Patient Access to Health Information and Portal Services
 
-### Essential Interaction
+The Patient Portal provides patients with access to information and services made available through OpenEMR. Depending on the portal configuration, patients may log in, view laboratory results, update personal information, and send secure messages.
 
-[Add completed analysis.]
+This analysis focuses on the interaction between a **Patient** and the OpenEMR Patient Portal. The patient has legitimate access to information and functions associated with the patient's account.
 
-### Actors and Misusers
+### Use/Misuse Case Analysis
 
-[Add completed analysis.]
+The primary legitimate actor is a **Patient** who authenticates to the Patient Portal and uses the functions made available through the patient's account.
 
-### Use/Misuse Case Diagram
+The following legitimate use cases were identified:
 
-[Insert final diagram.]
+- Log Into Portal
+- View Lab Results
+- Update Personal Information
+- Send Secure Message
+
+The misuse analysis considers an attacker who obtains or attempts to obtain a patient's credentials in order to access patient information, modify information, or impersonate the patient.
+
+The following misuse cases were identified:
+
+- Steal Credentials
+- Access Unattended Session
+- Intercept Data in Transit
+- Change Patient Information Illegitimately
+- Impersonate Patient in Messaging
+
+The following diagram presents the Patient Portal use cases and associated misuse cases.
+
+<img width="420" height="530" alt="Patient Portal Use-Misuse Case Diagram" src="https://github.com/user-attachments/assets/15f46cea-eb29-4fcf-b4c5-49cc153c2f83" />
 
 ### Derived Security Requirements
 
-[Add derived security requirements.]
+- **SR-6:** OpenEMR shall support multi-factor authentication for patients accessing the Patient Portal.
+- **SR-7:** OpenEMR shall restrict patient access to medical records associated with the authenticated patient's account.
+- **SR-8:** OpenEMR shall encrypt communications between the Patient Portal and the user's web browser.
+- **SR-9:** OpenEMR shall terminate Patient Portal sessions after a configurable period of inactivity.
+- **SR-10:** OpenEMR shall record successful and unsuccessful patient authentication attempts in an audit log.
 
 ### OpenEMR Alignment
 
-[Add OpenEMR documentation/codebase findings.]
+The security requirements derived from the Patient Portal misuse-case analysis were compared with current OpenEMR functionality and documentation.
+
+- **SR-6 – Patient Multi-Factor Authentication:** Current OpenEMR development information identifies Patient Portal MFA as a capability that is not currently available. This requirement therefore represents a gap between the derived security requirement and current functionality.
+- **SR-7 – Patient Access Control:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-8 – Encrypted Communications:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-9 – Patient Session Timeout:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-10 – Authentication Audit Logging:** **[Verify against OpenEMR documentation/codebase.]**
+
+### Summary
+
+Patient Portal misuse cases often involve attackers obtaining patient credentials or gaining access to an authenticated session. Easily guessed or compromised passwords and unattended sessions can expose patient information and create risks to the confidentiality and integrity of patient data.
+
+Strengthening authentication and session-security requirements can reduce these risks. Controls such as stronger password protections, strict inactivity timeouts, and multi-factor authentication can help protect Patient Portal accounts. The analysis also identifies Patient Portal MFA as an area where additional OpenEMR functionality could further strengthen patient authentication.
+
+### Sources
+
+**[Add OpenEMR documentation/codebase sources used to verify SR-6 through SR-10.]**
 
 ---
 
-## 3. Human User
+## 3. Human User – Physician
 
-**Assigned to: Jacob**
+### Essential Interaction: Physician Access to Clinical Functions
 
-### Essential Interaction
+Physicians interact with OpenEMR to authenticate, access patient medical records, document clinical encounters, and submit electronic prescriptions. These interactions involve access to Protected Health Information (PHI) and clinical functions that require appropriate authentication, authorization, session security, and input protection.
 
-[Add completed analysis.]
+This analysis focuses on the interaction between a **Physician** and OpenEMR's clinical functions.
 
-### Actors and Misusers
+### Use/Misuse Case Analysis
 
-[Add completed analysis.]
+The primary legitimate actor is a **Physician** who authenticates to OpenEMR and performs authorized clinical activities.
 
-### Use/Misuse Case Diagram
+The following legitimate use cases were identified:
 
-[Insert final diagram.]
+- Authenticate Physician Session
+- View Patient Medical Record
+- Record Encounter Note
+- Submit Electronic Prescription
+
+The misuse analysis considers attacks against the physician's authenticated session, patient-record access, clinical input fields, and electronic prescribing functions.
+
+The following misuse cases were identified:
+
+- Hijack Active Session
+- Enumerate Unassigned Patient Records via IDOR
+- Inject SQL/XSS Payloads into Encounter Forms
+- Forge Prescription Orders via Unchecked Endpoints
+
+The following diagram presents the Physician use cases, misuse cases, and associated security controls.
+
+<img width="1189" height="737" alt="Physician Use-Misuse Case Diagram" src="https://github.com/user-attachments/assets/08803e83-d4be-4358-8199-379093a6fda5" />
 
 ### Derived Security Requirements
 
-[Add derived security requirements.]
+- **SR-11:** OpenEMR shall provide appropriate authentication and session-security controls for users assigned to the Physician role, including multi-factor authentication and configurable session expiration.
+- **SR-12:** OpenEMR shall protect authenticated session cookies using appropriate HTTPS and browser cookie security controls.
+- **SR-13:** OpenEMR shall enforce access-control checks when a physician requests patient records to prevent unauthorized access to patient information.
+- **SR-14:** OpenEMR shall record security-relevant access to and modification of Protected Health Information (PHI) in audit logs.
+- **SR-15:** OpenEMR shall validate and sanitize user-supplied clinical data and use secure database-query mechanisms to reduce SQL injection and Cross-Site Scripting (XSS) risks.
+- **SR-16:** OpenEMR shall safely encode user-supplied content before rendering clinical information in web interfaces.
+- **SR-17:** OpenEMR shall enforce appropriate authorization checks before processing electronic prescription requests.
+- **SR-18:** OpenEMR shall provide additional authentication controls when required for sensitive electronic prescription transactions.
 
 ### OpenEMR Alignment
 
-[Add OpenEMR documentation/codebase findings.]
+The security requirements derived from the Physician misuse-case analysis should be evaluated against current OpenEMR functionality and documentation.
+
+- **SR-11 – Authentication and Session Security:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-12 – Session Cookie Protection:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-13 – Patient Record Access Control:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-14 – PHI Audit Logging:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-15 – Input and Database Security:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-16 – Output Encoding:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-17 – Electronic Prescription Authorization:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-18 – Prescription Re-authentication:** **[Verify against OpenEMR documentation/codebase.]**
+
+### Sources
+
+**[Add OpenEMR documentation/codebase sources used to verify SR-11 through SR-18.]**
 
 ---
 
-## 4. Hosting Environment
+## 4. Nurse Interaction
 
-**Assigned to: Mai**
+### Essential Interaction: Nurse Access to Patient and Clinical Information
 
-### Essential Interaction
+A nurse interacts with OpenEMR to access patient information and perform authorized clinical activities. Although nurses may interact with additional OpenEMR functionality, this analysis focuses on three representative interactions involving patient records, encounter documents, and prescription information.
 
-[Add completed analysis.]
+### Use/Misuse Case Analysis
 
-### Actors and Misusers
+The primary legitimate actor is a **Nurse** who uses OpenEMR to perform authorized clinical activities.
 
-[Add completed analysis.]
+The following legitimate use cases were identified:
 
-### Use/Misuse Case Diagram
+- Search Patient Record
+- Manage Encounter Documents
+- Enter Prescription Information
 
-[Insert final diagram.]
+The misuse analysis considers a **Rogue Staff Member** with privileges below those assigned to the nurse who attempts to abuse OpenEMR functionality or circumvent security controls.
+
+The following misuse cases were identified:
+
+- Prescription Tampering
+- Stored Cross-Site Scripting (XSS)
+- SQL Injection
+- Unauthorized Access
+
+The following diagram presents the Nurse use cases, misuse cases, and associated security controls.
+
+<img width="834" height="884" alt="Nurse Use-Misuse Case Diagram" src="https://github.com/user-attachments/assets/8a9506d9-bd5a-4901-a6d7-555770e979b5" />
 
 ### Derived Security Requirements
 
-[Add derived security requirements.]
+- **SR-19:** OpenEMR shall use parameterized queries with bound parameters for database operations involving user-supplied input.
+- **SR-20:** OpenEMR shall apply appropriate output encoding to user-supplied content before rendering it in the user interface.
+- **SR-21:** OpenEMR shall enforce fine-grained access controls so authenticated users can access only patient records and encounter documents for which they are authorized.
+- **SR-22:** OpenEMR shall consistently enforce encounter-sensitivity authorization checks at encounter-related entry points.
+- **SR-23:** OpenEMR shall verify that a user is authorized to enter or modify prescription information before permitting the operation.
+- **SR-24:** OpenEMR shall maintain an audit log of prescription-related activities, including the user identity, action performed, affected record, and timestamp.
 
 ### OpenEMR Alignment
 
-[Add OpenEMR documentation/codebase findings.]
+The security requirements derived from the Nurse misuse-case analysis were compared with OpenEMR security guidance and implementation observations.
+
+- **SR-19 – SQL Injection Protection:** OpenEMR's codebase security guidance recommends using binding and placeholders for SQL calls involving user-supplied data, which aligns with the requirement for parameterized queries.
+- **SR-20 – XSS Protection:** OpenEMR's security guidance recommends appropriate output handling, including the use of `htmlspecialchars`, to reduce Cross-Site Scripting risks.
+- **SR-21 – Access Control:** OpenEMR implements role-based access controls; however, the analysis identified potential weaknesses in how authorization is enforced when lower-privileged users search for patient information.
+- **SR-22 – Encounter Sensitivity:** The analysis identified encounter-related functionality where sensitivity authorization checks may not be consistently enforced, potentially allowing lower-privileged users to access or modify sensitive encounter information.
+- **SR-23 – Prescription Authorization:** **[Verify against OpenEMR documentation/codebase.]**
+- **SR-24 – Audit Logging:** OpenEMR implements audit logging that records security-relevant information such as event date and time, event type, subject identity, and outcome.
+
+### Sources
+
+**[Add Mai's OpenEMR documentation/codebase sources here.]**
 
 ---
 
-## 5. Main OpenEMR Components
+## 5. External Health System – Pharmacy
 
-**Assigned to: Trey**
+### Essential Interaction: Electronic Prescription Exchange
 
-### Essential Interaction
+An external pharmacy interacts with OpenEMR to exchange electronic prescription information. Because electronic prescriptions contain Protected Health Information (PHI) and medication information, unauthorized access or modification could affect patient privacy, patient safety, and regulatory compliance.
 
-[Add completed analysis.]
+This analysis focuses on the interaction between an **External Pharmacy Technician** and OpenEMR during electronic prescription and refill activities.
 
-### Actors and Misusers
+### Use/Misuse Case Analysis
 
-[Add completed analysis.]
+The primary legitimate actor is an **External Pharmacy Technician** who interacts with OpenEMR through electronic prescription functions.
 
-### Use/Misuse Case Diagram
+The following legitimate use cases were identified:
 
-[Insert final diagram.]
+- Receive Electronic Prescription
+- Request Prescription Refill
+- Verify Prescription Information
+
+The misuse analysis considers a **Hacker (Prescription Fraudster)** attempting to compromise prescription information or abuse the electronic prescription process.
+
+The following misuse cases were identified:
+
+- Prescription Tampering
+- Fraudulent Refill Request
+- Unauthorized Prescription Access
+- Malicious SQL Injection
+
+The following diagram presents the External Pharmacy use cases, misuse cases, and associated security controls.
+
+<img width="842" height="1043" alt="External Pharmacy Use-Misuse Case Diagram" src="https://github.com/user-attachments/assets/59dc7014-1a85-4b06-8aff-e63afc894402" />
 
 ### Derived Security Requirements
 
-[Add derived security requirements.]
+- **SR-25:** OpenEMR shall authenticate external pharmacy systems before transmitting prescription information.
+- **SR-26:** OpenEMR shall ensure that only authorized pharmacies may access prescription records associated with their patients.
+- **SR-27:** OpenEMR shall encrypt prescription information while in transit.
+- **SR-28:** OpenEMR shall maintain an audit log of prescription creation, modification, transmission, and refill activities.
+- **SR-29:** OpenEMR shall use parameterized queries when processing externally supplied data.
+- **SR-30:** OpenEMR shall encode user-supplied data before presentation to reduce the risk of stored Cross-Site Scripting (XSS).
 
 ### OpenEMR Alignment
 
-[Add OpenEMR documentation/codebase findings.]
+The security requirements derived from the External Pharmacy misuse-case analysis were compared with OpenEMR functionality and documented security controls.
+
+- **SR-25 – Pharmacy Authentication:** **Partial.** OpenEMR provides security mechanisms for electronic prescription interactions, but additional pharmacy-specific authentication controls could strengthen this interaction.
+- **SR-26 – Authorization:** **Supported.** OpenEMR provides role-based access-control functionality for restricting access to protected resources.
+- **SR-27 – Encryption in Transit:** **Supported.** OpenEMR supports encrypted communications for protecting sensitive information in transit.
+- **SR-28 – Audit Logging:** **Supported.** OpenEMR provides audit-logging functionality for recording security-relevant activities.
+- **SR-29 – SQL Injection Protection:** **Supported.** OpenEMR's secure-development guidance recommends protections such as parameterized queries for database operations.
+- **SR-30 – XSS Prevention:** **Supported.** OpenEMR's secure-development guidance includes protections for handling and presenting user-supplied data to reduce Cross-Site Scripting risks.
+
+Although OpenEMR provides controls that address many of these requirements, interaction with an external pharmacy still depends on those controls being properly implemented and configured to protect prescription information from unauthorized access or modification.
+
+### Sources
+
+**[Add Erik's OpenEMR documentation/codebase sources here.]**
 
 ---
 
-## Security Requirements Summary
+# Part 2 – OpenEMR Security Documentation Review
 
-[Compile the security requirements derived from all five use/misuse-case analyses.]
+## Multi-Factor Authentication Documentation
 
-## AI Prompt and Reflection
+For the security documentation review, the team examined OpenEMR's Multi-factor Authentication (MFA) documentation and compared it with current OpenEMR development information. The review identified several areas where the documentation could provide administrators with clearer information about MFA configuration, capabilities, and limitations.
 
-### AI Prompt
+### 1. MFA Prerequisites and Hardware Authentication
 
-[Insert the prompt used to improve the use/misuse-case diagrams.]
+The MFA documentation would benefit from a clearly identified prerequisites section describing applicable OpenEMR versions, HTTPS requirements, browser compatibility, and supported authentication devices.
 
-### Reflection
+The documentation should also clarify the status of hardware-based authentication. OpenEMR currently includes U2F functionality, while current development discussions identify WebAuthn as the modern successor to the existing U2F implementation. Clearer documentation would help administrators understand which hardware authentication methods are currently supported and which technologies are planned for future development.
 
-[Describe how the AI response affected the diagrams and whether the suggestions were useful.]
+### 2. Practitioner MFA Enforcement
 
-## Team Reflection
+The documentation should clearly explain that MFA enrollment for practitioner-side users is currently self-service. OpenEMR does not currently provide an administrator setting that requires all practitioner users to enroll in MFA.
 
-[Compile the individual team-member reflections into the team's final reflection.]
+Users who have not enrolled in MFA can therefore continue authenticating with their password without being forced to configure a second authentication factor. This limitation is important for organizations whose security policies require MFA for all practitioner accounts.
 
-## References
+### 3. Patient Portal MFA
 
-[Compile sources used by the team.]
+The documentation should explicitly distinguish practitioner-side MFA from Patient Portal authentication. Current OpenEMR development information indicates that the Patient Portal does not currently provide MFA. Patient authentication uses a username and password with optional reCAPTCHA.
+
+Clearly documenting this distinction would prevent administrators from assuming that OpenEMR's existing MFA functionality also protects Patient Portal accounts.
+
+### 4. Administrative MFA Reset
+
+The "Cancel User MFA" documentation should be reviewed to ensure that it reflects the current supported administrative procedure. Existing MFA documentation describes directly removing a user's MFA registration from the database.
+
+Current OpenEMR development information references administrative MFA management through `usergroup_admin.php`. The documentation should clearly identify the preferred supported method for resetting or clearing a user's MFA registration and avoid recommending direct database modification when an administrative interface is available.
+
+## Recommended Documentation Improvements
+
+Based on the review, OpenEMR's MFA documentation could be improved by:
+
+- Adding a prerequisites section covering OpenEMR version, HTTPS, browser, and authentication-device requirements.
+- Clearly documenting the current limitations of practitioner-side MFA enforcement.
+- Explicitly distinguishing practitioner MFA from Patient Portal authentication.
+- Updating administrative MFA-reset instructions to reflect the current supported workflow.
+- Clarifying the status of U2F hardware authentication and the transition toward newer WebAuthn/FIDO2 authentication methods.
+
+These changes would provide administrators with a clearer understanding of how OpenEMR MFA should be configured, where it currently applies, and what limitations should be considered when developing an organization's authentication policies.
+
+## Sources
+
+- [OpenEMR Multi-factor Authentication](https://www.open-emr.org/wiki/index.php/Multi-factor_Authentication)
+- [OpenEMR Issue #12033 – Add force_mfa global to require enrollment for all users](https://github.com/openemr/openemr/issues/12033)
+- [OpenEMR Issue #12034 – Add multi-factor authentication to Patient Portal](https://github.com/openemr/openemr/issues/12034)
