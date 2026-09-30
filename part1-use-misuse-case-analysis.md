@@ -117,7 +117,12 @@ The security requirements derived from the Patient Portal misuse-case analysis w
 
 ### Sources
 
-**[Add OpenEMR documentation/codebase sources used to verify SR-6 through SR-10.]**
+- [OpenEMR Patient Portal MFA Issue #12034](https://github.com/openemr/openemr/issues/12034)
+- [OpenEMR API Authorization Documentation](https://github.com/openemr/openemr/blob/master/Documentation/api/AUTHORIZATION.md)
+- [OpenEMR API Authentication Documentation](https://github.com/openemr/openemr/blob/master/Documentation/api/AUTHENTICATION.md)
+- [OpenEMR Administration Globals](https://www.open-emr.org/wiki/index.php/Administration_Globals)
+- [OpenEMR Auditing Documentation](https://www.open-emr.org/wiki/index.php/3.1_Auditing_in_OpenEMR)
+- [OpenEMR Securing OpenEMR](https://www.open-emr.org/wiki/index.php/Securing_OpenEMR)
 
 ---
 
@@ -151,8 +156,7 @@ The following misuse cases were identified:
 
 The following diagram presents the Physician use cases, misuse cases, and associated security controls.
 
-<img width="1221" height="740" alt="image" src="https://github.com/user-attachments/assets/814bd0c5-f12c-4417-9c7f-1b4ce9d18c97" />
-
+<img width="1221" height="740" alt="Physician Use-Misuse Case Diagram" src="https://github.com/user-attachments/assets/814bd0c5-f12c-4417-9c7f-1b4ce9d18c97" />
 
 ### Derived Security Requirements
 
@@ -181,10 +185,14 @@ The security requirements derived from the Physician misuse-case analysis were c
 ### Sources
 
 - [OpenEMR Multi-factor Authentication](https://www.open-emr.org/wiki/index.php/Multi-factor_Authentication)
-- [OpenEMR Securing OpenEMR]((https://www.open-emr.org/wiki/index.php/Securing_OpenEMR))
+- [OpenEMR Securing OpenEMR](https://www.open-emr.org/wiki/index.php/Securing_OpenEMR)
 - [OpenEMR Access Controls Listing](https://www.open-emr.org/wiki/index.php/Access_Controls_Listing)
 - [OpenEMR Administration Globals](https://www.open-emr.org/wiki/index.php/Administration_Globals)
-
+- [OpenEMR Auditing Documentation](https://www.open-emr.org/wiki/index.php/3.1_Auditing_in_OpenEMR)
+- [OpenEMR Codebase Security](https://www.open-emr.org/wiki/index.php/Codebase_Security)
+- [OpenEMR API Developer Guide](https://github.com/openemr/openemr/blob/master/Documentation/api/DEVELOPER_GUIDE.md)
+- [OpenEMR Standard Menu Configuration](https://github.com/openemr/openemr/blob/master/interface/main/tabs/menu/menus/standard.json)
+- [OpenEMR Issue #11851 – Missing authorization check on interface/eRx.php](https://github.com/openemr/openemr/issues/11851)
 
 ---
 
@@ -225,6 +233,7 @@ The following diagram presents the Nurse use cases, misuse cases, and associated
 - **SR-22:** OpenEMR shall consistently enforce encounter-sensitivity authorization checks at encounter-related entry points.
 - **SR-23:** OpenEMR shall verify that a user is authorized to enter or modify prescription information before permitting the operation.
 - **SR-24:** OpenEMR shall maintain an audit log of prescription-related activities, including the user identity, action performed, affected record, and timestamp.
+
 ### OpenEMR Alignment
 
 The security requirements derived from the Nurse misuse-case analysis were compared with OpenEMR security guidance and implementation observations.
@@ -238,12 +247,12 @@ The security requirements derived from the Nurse misuse-case analysis were compa
 
 ### Sources
 
-- [Codebase_Security](https://www.open-emr.org/wiki/index.php/Codebase_Security)
-- [Overview OpenEMR](https://github.com/openemr/openemr/security?page=1)
+- [OpenEMR Codebase Security](https://www.open-emr.org/wiki/index.php/Codebase_Security)
+- [OpenEMR Security Advisories](https://github.com/openemr/openemr/security)
 - [OpenEMR Features](https://www.open-emr.org/wiki/index.php/OpenEMR_Features)
-- [Access Control Listing](https://www.open-emr.org/wiki/index.php/Access_Controls_Listing#Encounter_Information_(encounters))
-- [ACL Fine Granular Control](https://www.open-emr.org/wiki/index.php/ACL_Fine_Granular_Control)
-- [Audit Control](https://www.open-emr.org/wiki/index.php/4._Audit_Control?utm_source=chatgpt.com)
+- [OpenEMR Access Controls Listing – Encounter Information](https://www.open-emr.org/wiki/index.php/Access_Controls_Listing#Encounter_Information_(encounters))
+- [OpenEMR ACL Fine Granular Control](https://www.open-emr.org/wiki/index.php/ACL_Fine_Granular_Control)
+- [OpenEMR Audit Control](https://www.open-emr.org/wiki/index.php/4._Audit_Control)
 
 ---
 
@@ -291,26 +300,55 @@ The following diagram presents the External Pharmacy use cases, misuse cases, an
 
 The security requirements derived from the External Pharmacy misuse-case analysis were compared with OpenEMR functionality and documented security controls.
 
-- **SR-25 – Pharmacy Authentication:** **Partial.** OpenEMR provides security mechanisms for electronic prescription interactions, but additional pharmacy-specific authentication controls could strengthen this interaction.
-- **SR-26 – Authorization:** **Supported.** OpenEMR provides role-based access-control functionality for restricting access to protected resources.
-- **SR-27 – Encryption in Transit:** **Supported.** OpenEMR supports encrypted communications for protecting sensitive information in transit.
-- **SR-28 – Audit Logging:** **Supported.** OpenEMR provides audit-logging functionality for recording security-relevant activities.
-- **SR-29 – SQL Injection Protection:** **Supported.** OpenEMR's secure-development guidance recommends protections such as parameterized queries for database operations.
-- **SR-30 – XSS Prevention:** **Supported.** OpenEMR's secure-development guidance includes protections for handling and presenting user-supplied data to reduce Cross-Site Scripting risks.
+- **SR-25 – Pharmacy Authentication:** **Partially Supported.** OpenEMR provides authentication and security mechanisms for electronic-prescribing functionality, but authentication of external pharmacy systems also depends on the configured electronic-prescribing service and integration.
+- **SR-26 – Authorization:** **Supported with Limitations.** OpenEMR defines prescription-specific access controls, including the `patients:rx` permission. Current security findings demonstrate the importance of consistently applying these authorization checks throughout electronic-prescribing functionality.
+- **SR-27 – Encryption in Transit:** **Supported.** OpenEMR security guidance requires or recommends HTTPS/TLS for communications involving sensitive information and API interactions.
+- **SR-28 – Audit Logging:** **Supported.** OpenEMR provides audit-logging functionality for security-relevant activity and includes orders and patient-record activity among auditable events.
+- **SR-29 – SQL Injection Protection:** **Supported.** OpenEMR's secure-development guidance instructs developers to use binding and placeholders for SQL operations involving externally supplied data.
+- **SR-30 – XSS Prevention:** **Supported.** OpenEMR's secure-development guidance provides contextual output-encoding mechanisms for reducing Cross-Site Scripting risks.
 
-Although OpenEMR provides controls that address many of these requirements, interaction with an external pharmacy still depends on those controls being properly implemented and configured to protect prescription information from unauthorized access or modification.
+Although OpenEMR provides controls that address many of these requirements, interaction with an external pharmacy also depends on the electronic-prescribing integration and on security controls being consistently implemented and configured.
 
 ### Sources
 
-**[Add Erik's OpenEMR documentation/codebase sources here.]**
+- [OpenEMR Codebase Security](https://www.open-emr.org/wiki/index.php/Codebase_Security)
+- [OpenEMR Auditing Documentation](https://www.open-emr.org/wiki/index.php/3.1_Auditing_in_OpenEMR)
+- [OpenEMR API Authentication Documentation](https://github.com/openemr/openemr/blob/master/Documentation/api/AUTHENTICATION.md)
+- [OpenEMR ACL Configuration Source](https://github.com/openemr/openemr/blob/master/acl_upgrade.php)
+- [OpenEMR Standard Menu Configuration](https://github.com/openemr/openemr/blob/master/interface/main/tabs/menu/menus/standard.json)
+- [OpenEMR Issue #11851 – Missing authorization check on interface/eRx.php](https://github.com/openemr/openemr/issues/11851)
 
 ---
 
 ## Part 1 Summary
 
-The five use/misuse-case analyses demonstrate how security risks can emerge across different interactions within the OpenEMR operational environment. The identified misuse cases include credential theft, unauthorized access, session misuse, injection attacks, prescription tampering, and abuse of legitimate privileges. These scenarios show that security requirements must address both external attackers and users who may intentionally or unintentionally misuse system access.
+The five use/misuse-case analyses identified security requirements involving authentication, authorization, session security, encryption, audit logging, secure input handling, and protection of sensitive clinical and prescription functions. Comparing these requirements with OpenEMR's advertised functionality, documentation, and codebase showed that OpenEMR provides many of the security controls expected by the misuse-case analysis, including multi-factor authentication for practitioner users, access-control mechanisms, audit logging, session-management controls, and protections against common web application vulnerabilities.
 
-The resulting security requirements emphasize authentication, access control, session security, encryption, audit logging, secure input handling, and authorization of sensitive operations. Comparing these requirements with OpenEMR's existing functionality also identifies areas where current security controls align with the requirements as well as areas where additional functionality or documentation could improve security.
+The analysis also identified areas where OpenEMR's existing security functionality does not completely satisfy the derived requirements or where implementation and documentation could be improved. Examples include the lack of Patient Portal MFA, limitations surrounding enforcement of practitioner MFA, and cases where authorization controls must be consistently applied to sensitive functionality. Overall, OpenEMR provides substantial security functionality that addresses many of the threats identified by the team, while the remaining gaps demonstrate how misuse-case analysis can identify opportunities for additional security controls and improvements.
+
+---
+
+## AI-Assisted Diagram Analysis
+
+### Prompt Used
+
+The team used generative AI to help review initial use/misuse-case diagrams and identify security scenarios or countermeasures that may have been overlooked. The following prompt was used as part of the analysis:
+
+> You are an expert software security requirements engineer. Review the described OpenEMR use-case and misuse-case diagram and identify major misuse cases that may be missing. Introduce misuse cases in stages and suggest security countermeasures in response to each misuse case. For each suggestion, identify the threat actor, the targeted use case, the potential consequence, and an OpenEMR security function that could mitigate the threat. Keep the diagram focused on software features and avoid adding unnecessary complexity.
+
+### Reflection on AI Use
+
+Generative AI was useful for reviewing the diagrams from an attacker's perspective and suggesting misuse scenarios or security controls that might not have been considered during the initial analysis. It was also helpful when navigating the large amount of information available in the OpenEMR repository and Wiki. The suggestions helped the team iterate between legitimate use cases, misuse cases, and possible countermeasures.
+
+AI suggestions were not treated as evidence that a security feature existed in OpenEMR. Security controls and implementation claims were compared with OpenEMR documentation, source code, or project information before being included in the alignment analysis. This made AI most useful as a tool for generating and organizing ideas while the OpenEMR project itself remained the source used to verify functionality.
+
+---
+
+## GitHub Project Board
+
+The team used a GitHub Project Board to assign responsibilities, track progress, and coordinate work throughout the OpenEMR security analysis.
+
+[OpenEMR Security Enhancement Project Board](https://github.com/users/S3THs00/projects/1)
 
 ---
 
@@ -361,3 +399,15 @@ These changes would provide administrators with a clearer understanding of how O
 - [OpenEMR Multi-factor Authentication](https://www.open-emr.org/wiki/index.php/Multi-factor_Authentication)
 - [OpenEMR Issue #12033 – Add force_mfa global to require enrollment for all users](https://github.com/openemr/openemr/issues/12033)
 - [OpenEMR Issue #12034 – Add multi-factor authentication to Patient Portal](https://github.com/openemr/openemr/issues/12034)
+
+---
+
+# Team Reflection
+
+As a team, this assignment helped us better understand how traditional use-case analysis can be expanded to consider security and misuse. We learned that identifying legitimate system interactions is only the beginning of the requirements process. The misuse-case analysis required us to consider who might abuse those interactions, what they could attempt to accomplish, and which security controls could mitigate those threats. This helped us translate potential security problems into specific functional security requirements.
+
+Our individual experiences also provided different perspectives on the exercise. Seth found that developing the Network and Security Environment analysis helped distinguish between intentional misuse, such as credential attacks and abuse by authenticated users, and unintentional risks, such as unattended authenticated sessions. Trey was able to draw on his previous experience working for a healthcare provider while finding that examining actual OpenEMR patient interactions from a misuse perspective presented a different challenge. Jacob found the structured mapping between primary use cases, misuse cases, and mitigating security controls useful for establishing traceability and translating vulnerabilities into technical security requirements. Mai found that the assignment refreshed her understanding of use-case diagrams while introducing the idea of including malicious users and considering security throughout the software lifecycle. Erik related the exercise to his experience performing governance, risk, and compliance assessments, comparing the misuse-case diagrams with the risk bowtie approach he normally uses.
+
+Another useful part of the assignment was researching an actual open-source project rather than developing security requirements only in theory. The team examined OpenEMR documentation, its Wiki, GitHub repository, and codebase to determine whether the security controls identified through misuse-case analysis were actually available. This showed us that identifying an appropriate security control does not necessarily mean that the software completely implements that control. Comparing our requirements with OpenEMR allowed us to identify both existing protections and areas where functionality or documentation could potentially be improved.
+
+Generative AI was also useful during the analysis. Team members used it to generate ideas, review diagrams for additional misuse cases, and navigate OpenEMR's extensive documentation and repository when searching for mitigating controls. The suggestions still needed to be compared with OpenEMR documentation and code before being included in the analysis. Overall, the most useful aspects of the assignment were learning to approach system interactions from an attacker's perspective, connecting misuse cases to concrete security requirements, gaining additional experience with GitHub and open-source software, and seeing how security requirements engineering can be applied to an existing software project.
