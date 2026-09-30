@@ -233,7 +233,12 @@ The security requirements derived from the Nurse misuse-case analysis were compa
 
 ### Sources
 
-**[Add Mai's OpenEMR documentation/codebase sources here.]**
+- [Codebase_Security](https://www.open-emr.org/wiki/index.php/Codebase_Security)
+- [Overview OpenEMR](https://github.com/openemr/openemr/security?page=1)
+- [OpenEMR Features](https://www.open-emr.org/wiki/index.php/OpenEMR_Features)
+- [Access Control Listing](https://www.open-emr.org/wiki/index.php/Access_Controls_Listing#Encounter_Information_(encounters))
+- [ACL Fine Granular Control](https://www.open-emr.org/wiki/index.php/ACL_Fine_Granular_Control)
+- [Audit Control](https://www.open-emr.org/wiki/index.php/4._Audit_Control?utm_source=chatgpt.com)
 
 ---
 
