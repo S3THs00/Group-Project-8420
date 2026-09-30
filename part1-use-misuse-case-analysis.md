@@ -115,12 +115,6 @@ The security requirements derived from the Patient Portal misuse-case analysis w
 - **SR-9 – Patient Session Timeout:** **[Verify against OpenEMR documentation/codebase.]**
 - **SR-10 – Authentication Audit Logging:** **[Verify against OpenEMR documentation/codebase.]**
 
-### Summary
-
-Patient Portal misuse cases often involve attackers obtaining patient credentials or gaining access to an authenticated session. Easily guessed or compromised passwords and unattended sessions can expose patient information and create risks to the confidentiality and integrity of patient data.
-
-Strengthening authentication and session-security requirements can reduce these risks. Controls such as stronger password protections, strict inactivity timeouts, and multi-factor authentication can help protect Patient Portal accounts. The analysis also identifies Patient Portal MFA as an area where additional OpenEMR functionality could further strengthen patient authentication.
-
 ### Sources
 
 **[Add OpenEMR documentation/codebase sources used to verify SR-6 through SR-10.]**
@@ -300,6 +294,14 @@ Although OpenEMR provides controls that address many of these requirements, inte
 ### Sources
 
 **[Add Erik's OpenEMR documentation/codebase sources here.]**
+
+---
+
+## Part 1 Summary
+
+The five use/misuse-case analyses demonstrate how security risks can emerge across different interactions within the OpenEMR operational environment. The identified misuse cases include credential theft, unauthorized access, session misuse, injection attacks, prescription tampering, and abuse of legitimate privileges. These scenarios show that security requirements must address both external attackers and users who may intentionally or unintentionally misuse system access.
+
+The resulting security requirements emphasize authentication, access control, session security, encryption, audit logging, secure input handling, and authorization of sensitive operations. Comparing these requirements with OpenEMR's existing functionality also identifies areas where current security controls align with the requirements as well as areas where additional functionality or documentation could improve security.
 
 ---
 
