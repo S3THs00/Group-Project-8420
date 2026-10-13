@@ -1,3 +1,31 @@
+# OpenEMR Security Assurance Case Analysis
+
+## Part 1 – Assurance Case
+
+### Unauthorized Access Assurance Case
+
+**Top-Level Claim C1:** OpenEMR sufficiently prevents unauthorized access to protected system resources.
+
+This assurance case provides an argument and supporting evidence that OpenEMR sufficiently prevents unauthorized access to protected system resources. The argument addresses three primary concerns: repeated credential-guessing and credential-stuffing attempts, compromised user passwords, and authenticated users accessing resources beyond their assigned privileges.
+
+### Assurance Case Diagram
+
+![OpenEMR Unauthorized Access Assurance Case](OpenEMR-Assurance-Case.drawio.svg)
+
+### Argument Summary
+
+The top-level claim is supported by two sub-claims. The first addresses unauthorized users attempting to gain access through protected user accounts. The second addresses authenticated users attempting to access resources outside their authorized privileges.
+
+The assurance case considers three rebutting defeaters:
+
+- **R1:** Unless an attacker succeeds through repeated credential-guessing or credential-stuffing attempts.
+- **R2:** Unless an attacker obtains valid credentials for a protected user account.
+- **R3:** Unless an authenticated user can access resources beyond their assigned privileges.
+
+These rebuttals are addressed through counterclaims concerning restrictions on repeated authentication attempts, multi-factor authentication, and role- and privilege-based access controls. Planned evidence E1 through E9 provides the basis for evaluating these counterclaims.
+
+---
+
 # Part 2 – OpenEMR Evidence Assessment
 
 ## Top-Level Claim
