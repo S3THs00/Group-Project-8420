@@ -10,7 +10,7 @@ This assurance case provides an argument and supporting evidence that OpenEMR su
 
 ### Assurance Case Diagram
 
-![OpenEMR Unauthorized Access Assurance Case](OpenEMR-Assurance-Case.drawio.svg)
+![OpenEMR Unauthorized Access Assurance Case](Assurance%20Case.png)
 
 ### Argument Summary
 
