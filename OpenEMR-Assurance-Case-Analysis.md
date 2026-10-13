@@ -52,21 +52,24 @@ The existence of a security mechanism is not necessarily evidence that the mecha
 
 ---
 
-## Authentication Protection
-
 ### E1 – Authentication Rate-Limiting Configuration
 
 **Assessment:** Partially Available
 
-OpenEMR provides configurable protections against repeated failed authentication attempts. OpenEMR authentication documentation describes mechanisms for tracking failed authentication attempts and applying restrictions based on configured settings.
+OpenEMR provides configurable authentication protections that restrict repeated unsuccessful login attempts. The official OpenEMR documentation identifies a Maximum Failed Login Attempts setting, while the application's AuthUtils.php implementation includes account-level and IP-level failed-login tracking and restriction mechanisms.
 
-These mechanisms support the argument that OpenEMR can restrict repeated authentication attempts and reduce exposure to credential-guessing attacks.
+These findings provide verifiable evidence that authentication protection mechanisms exist within the OpenEMR project.
 
-However, the existence of these mechanisms does not establish that appropriate restrictions are enabled in a particular OpenEMR deployment. The effectiveness of these protections depends on their configuration.
+However, OpenEMR's documentation indicates that a maximum failed-login setting of zero disables the restriction. Therefore, the existence of these controls does not establish that they are enabled and appropriately configured in a particular deployment.
 
-**Evidence Gap:** Verification that authentication restrictions are enabled and appropriately configured in a representative OpenEMR deployment.
+**Verified Project Evidence:**
+- OpenEMR Administration Globals documentation
+- OpenEMR AuthUtils.php authentication implementation
+- OpenEMR API authentication documentation
 
-**Additional Evidence Needed:** Configuration records or screenshots demonstrating the enabled authentication restrictions and their settings.
+**Evidence Gap:** Verification that failed-login restrictions are enabled and appropriately configured in a representative OpenEMR deployment.
+
+**Additional Evidence Needed:** Configuration screenshots or records demonstrating the enabled restrictions and their thresholds.
 
 ---
 
