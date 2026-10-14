@@ -160,7 +160,7 @@ The assurance case includes the following argument:
 
 ### Assurance Case Diagram
 
-> **PLACEHOLDER: Erik's assurance-case diagram will be added here.**
+![Erik Assurance Case](Erik%20Assurance%20Diagram.png)
 
 ### Supporting Claims
 
