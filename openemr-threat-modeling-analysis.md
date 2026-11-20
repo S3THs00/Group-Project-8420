@@ -121,7 +121,7 @@ The two HTTPS flows cross the Internet Trust Boundary.
 
 ## DFD Diagram
 
-**[SETH – INSERT EXPORTED DFD IMAGE HERE]**
+![OpenEMR Authentication and Authorized Resource Access DFD](OpenEMR_Authentication_DFD.PNG)
 
 ---
 
@@ -201,7 +201,7 @@ The model examines communication between the external pharmacy/ePrescribing envi
 
 ## DFD Diagram
 
-**[ERIK – INSERT EXPORTED DFD IMAGE HERE]**
+![OpenEMR External Pharmacy Prescription Exchange DFD](Erik_OpenEMR_Authentication_DFD.PNG)
 
 ---
 
