@@ -245,7 +245,62 @@ The Authentication and Authorized Resource Access DFD covers several of the team
 
 ## Trey – Patient MFA
 
-**[TREY – ADD YOUR THREAT-MODELING ANALYSIS/FINDINGS HERE. INCLUDE THE RELEVANT SCENARIO, IMPORTANT THREATS, MITIGATIONS, MFA/AUTHENTICATION FINDINGS, AND ANYTHING ELSE FROM YOUR WORK THAT SHOULD APPEAR IN THE FINAL SUBMISSION.]**
+# DFD 3 – Patient MFA Access
+
+## Scenario Covered
+
+- Patient access to a patient portal and the MFA authentication with it
+
+**Primary contributor: Trey Moore**
+
+---
+
+## DFD Description
+
+The Patient Multi-Factor Authentication (MFA) DFD models the authentication and identity verification process between a patient and the OpenEMR Patient Portal.
+
+A patient initiates a login request through the OpenEMR Patient Portal by entering their username and password. The login credentials are transmitted to the OpenEMR Authentication Service over HTTPS, crossing the Internet Trust Boundary. The Authentication Service validates the credentials against the OpenEMR User Authentication Database before initiating an MFA verification request.
+
+The MFA Authentication Service generates a verification challenge and communicates with the patient's registered authentication method, such as an authenticator application or one-time passcode service. The patient submits the required verification response through the OpenEMR Patient Portal, which forwards it to the MFA Authentication Service for validation.
+
+Upon successful verification, the Authentication Service establishes an authenticated session and grants the patient access to authorized resources within the OpenEMR Patient Portal. Authentication attempts, MFA verification results, and relevant security events are recorded in the OpenEMR Audit Log Database. If authentication fails, access is denied and the unsuccessful attempt is logged.
+
+---
+
+## DFD Diagram
+
+![OpenEMR Patient MFA DFD](https://github.com/user-attachments/assets/743ede30-daf8-47f9-86c0-b91f29850e51)
+
+
+---
+
+## Microsoft Threat Modeling Tool Analysis
+
+The OpenEMR Patient Multi-Factor Authentication (MFA) threat analysis identified **18 potential threats** using the STRIDE threat modeling methodology.
+
+### Threat Summary
+
+| Status | Count |
+|---|---:|
+| Not Started | 0 |
+| Not Applicable | 0 |
+| Needs Investigation | 18 |
+| Mitigation Implemented | 0 |
+| **Total** | **18** |
+
+The threat model identified several important risks associated with patient authentication and MFA verification. These included spoofing of patient identities, interception or replay of MFA verification codes, unauthorized modification of registered authentication methods, exposure of authentication credentials, denial-of-service attacks against authentication services, and elevation of privilege through MFA bypass or account recovery vulnerabilities.
+
+Authentication and verification of patient identities are important because an attacker who compromises login credentials or intercepts MFA verification codes could gain unauthorized access to sensitive electronic protected health information (ePHI). To mitigate these risks, OpenEMR should implement secure authentication mechanisms such as WebAuthn/FIDO2, enforce rate limiting on authentication attempts, and use encrypted HTTPS connections for communication between the patient portal and authentication services. MFA enrollment and recovery processes should also require additional identity verification to prevent unauthorized changes to registered authentication methods.
+
+The model also identified risks associated with session management, authentication logging, and service availability. OpenEMR should ensure that successful MFA verification is required before granting authenticated access and that authorization checks continue to restrict patients to their own medical records. Audit logs should record authentication attempts, MFA verification results, account recovery activities, timestamps, and relevant user identifiers to support accountability and security investigations.
+
+All 18 threats were classified as **Needs Investigation** for reporting purposes because the proposed mitigations require additional implementation, configuration, or testing evidence before they can be considered effective. No threats were classified as Mitigation Implemented or Not Applicable at this stage. Further testing is necessary to verify that MFA enforcement, account recovery protections, session management, and access controls adequately protect patient information within the OpenEMR environment.
+
+## Full TMT HTML Report
+
+[OpenEMR Patient MFA – Full TMT Report]([https://github.com/S3THs00/Group-Project-8420/issues/26#issuecomment-7051710281](https://github.com/user-attachments/files/35186838/OpenEMR_Patient_MFA_Threat_Model.1.html))
+
+
 
 ## Jacob – Physician MFA
 
