@@ -191,11 +191,11 @@ For this reason, the team avoided classifying threats as **Mitigation Implemente
 
 ## DFD Description
 
-The External Pharmacy Prescription Exchange DFD models prescription and refill transactions between an external pharmacy or ePrescribing service and OpenEMR.
+The External Pharmacy Prescription Exchange DFD models prescription and refill transactions between an external pharmacy/ePrescribing service and OpenEMR.
 
-The model examines communication between the external pharmacy/ePrescribing environment and OpenEMR, including prescription and refill information exchanged across the external trust boundary.
+A Pharmacy Technician initiates a prescription or refill action through the External Pharmacy/ePrescribing Service. The external service sends the prescription or refill request to the OpenEMR Web Interface over HTTPS, crossing the Internet Trust Boundary. The web interface passes the authenticated prescription transaction to the OpenEMR Prescription Processing Service.
 
-**[ERIK – REVIEW THIS DESCRIPTION AND ADD OR CORRECT DETAILS FROM YOUR FINAL DFD IF NECESSARY]**
+The Prescription Processing Service reads from and writes to the OpenEMR Patient and Prescription Database and records relevant activity in the OpenEMR Audit Log Database. The resulting prescription or refill response is returned through the OpenEMR Web Interface to the external pharmacy/ePrescribing service over HTTPS.
 
 ---
 
@@ -219,7 +219,13 @@ Erik's Microsoft Threat Modeling Tool analysis identified **21 potential threats
 | Mitigation Implemented | 2 |
 | **Total** | **21** |
 
-**[ERIK – ADD A SHORT SUMMARY OF THE MOST IMPORTANT THREATS, MITIGATIONS, AND REASONS FOR ANY THREATS MARKED NOT APPLICABLE OR MITIGATION IMPLEMENTED]**
+The threat model identified several important risks associated with the external pharmacy workflow. These included spoofing of the external pharmacy/ePrescribing service, unauthorized access to prescription data, repudiation of prescription transactions, interruption of prescription requests or responses, SQL injection, cross-site scripting, and excessive resource consumption.
+
+Authentication and authorization of external pharmacy systems are important because an attacker impersonating a trusted pharmacy could attempt unauthorized prescription or refill transactions. OpenEMR should also validate trusted pharmacy endpoints and TLS certificates before returning prescription information. Audit logging should record the source or destination, timestamp, affected prescription or patient record, transaction identifier, and result to provide accountability for disputed transactions.
+
+Two threats were classified as Mitigation Implemented. Cross-site scripting is addressed through OpenEMR secure-coding guidance requiring output encoding of user-controlled data, while SQL injection against the patient and prescription database is addressed through parameterized queries and bound parameters. Most remaining threats were classified as Needs Investigation because implementation, configuration, or testing evidence would still be required to verify the mitigation for this specific workflow.
+
+Three automatically generated threats were classified as Not Applicable. Two involved operating-system-level impersonation between modeled processes, while the third involved shared process memory or executable references. These behaviors are not represented by this Level 1 OpenEMR model, which exchanges application data between the Web Interface and Prescription Processing Service.
 
 ---
 
@@ -338,7 +344,13 @@ HTTPS/TLS provides important protection for information while it is transmitted.
 
 This demonstrates the importance of applying multiple complementary security controls to interactions crossing a trust boundary.
 
-**[ERIK – ADD ANY IMPORTANT TRUST-BOUNDARY OBSERVATIONS FROM THE EXTERNAL PHARMACY DFD]**
+## External Pharmacy Trust-Boundary Observations
+
+The most important trust-boundary interaction in the External Pharmacy DFD is the exchange between the External Pharmacy/ePrescribing Service and the OpenEMR Web Interface. Both the prescription/refill request entering OpenEMR and the response returning to the pharmacy cross the Internet Trust Boundary using HTTPS.
+
+HTTPS/TLS protects prescription information while it is transmitted, but transport encryption alone does not establish that the external system is authorized to perform a requested prescription operation. OpenEMR must still authenticate the external pharmacy, enforce authorization after the request enters the trust boundary, and validate the destination before returning prescription information.
+
+The boundary also makes auditing important because activity originating outside OpenEMR's direct control should be tied to an authenticated external identity and a specific transaction. Interrupted requests or responses should also be detected and logged so an incomplete prescription transaction is not treated as successfully completed.
 
 ---
 
