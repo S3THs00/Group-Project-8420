@@ -1,4 +1,4 @@
-# OpenEMR Threat Modeling Analysis
+[2026.11.20.Linke.-.Threat.Report.htm](https://github.com/user-attachments/files/35192529/2026.11.20.Linke.-.Threat.Report.htm)# OpenEMR Threat Modeling Analysis
 
 ## Team Members
 
@@ -346,9 +346,53 @@ All 18 threats were classified as **Needs Investigation** for reporting purposes
 
 
 
-## Jacob – Physician MFA
+# DFD 5 - Physician MFA
 
-**[JACOB – ADD YOUR THREAT-MODELING ANALYSIS/FINDINGS HERE. INCLUDE THE RELEVANT SCENARIO, IMPORTANT THREATS, MITIGATIONS, MFA/AUTHENTICATION FINDINGS, AND ANYTHING ELSE FROM YOUR WORK THAT SHOULD APPEAR IN THE FINAL SUBMISSION.]**
+## Scenario Covered
+
+- Physician utilizing MFA to access EHR portal to view and edit patient health information.
+
+**Primary contributor: Jacob Linke**
+
+---
+
+## DFD Description
+
+The physician outside the application trust boundary obtains authentication via credentials and multi-factor authentication (MFA) through an EHR portal and authentication service backed by a credential store. Once verified, the EHR portal crosses a data boundary to query and retrieve patient medical history records from a dedicated database.
+
+---
+
+## DFD Diagram
+
+<img width="1249" height="694" alt="image" src="https://github.com/user-attachments/assets/c958fdcd-c76e-4b6c-b4a8-923bc750181e" />
+
+---
+
+## Microsoft Threat Modeling Tool Analysis
+
+Jacob's Microsoft Threat Modeling Tool analysis identified **37 potential threats**.
+
+### Threat Summary
+
+| Status | Count |
+|---|---:|
+| Not Started | 0 |
+| Not Applicable | 0 |
+| Needs Investigation | 29 |
+| Mitigation Implemented | 8 |
+| **Total** | **37** |
+
+The threat model identified key risks associated with a physician using multi-factor authentication (MFA) in OpenEMR to access patient medical history records. These included spoofing of users or internal/data components, session hijacking or replay attacks, SQL injection, web injection/defacement or phishing, exposure of sensitive credentials or configuration data, database tampering or anomalous activity, and repudiation of record accesses.
+
+Strong authentication and MFA enforcement are essential so an attacker cannot impersonate a physician or bypass login controls to view sensitive patient records. OpenEMR and its surrounding web and database tiers should enforce valid TLS certificates, authenticated service/database connections, and boundary isolation so credentials, session tokens, and patient history data remain protected in transit and across trust boundaries. Audit logging should capture authentication events, MFA verification outcomes, and patient record queries to support accountability and traceability.
+
+Verified controls such as active MFA enrollment and TLS/transport protection can be marked as mitigated where confirmed in the deployment, while most remaining threats are classified as needing investigation until version-specific code, web-server headers, session/cookie settings, and database configurations are verified.
+
+---
+
+[Uploading 2026.11.20.Linke.-.Threat.Report.htm…]()
+
+
 
 ---
 
