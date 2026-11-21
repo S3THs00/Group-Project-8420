@@ -342,7 +342,7 @@ All 18 threats were classified as **Needs Investigation** for reporting purposes
 
 ## Full TMT HTML Report
 
-[OpenEMR Patient MFA – Full TMT Report]([https://github.com/S3THs00/Group-Project-8420/issues/26#issuecomment-7051710281](https://github.com/user-attachments/files/35186838/OpenEMR_Patient_MFA_Threat_Model.1.html))
+[OpenEMR Patient MFA – Full TMT Report](https://github.com/user-attachments/files/35186838/OpenEMR_Patient_MFA_Threat_Model.1.html)
 
 
 
