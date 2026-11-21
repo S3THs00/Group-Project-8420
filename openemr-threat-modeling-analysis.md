@@ -1,4 +1,4 @@
-[2026.11.20.Linke.-.Threat.Report.htm](https://github.com/user-attachments/files/35192529/2026.11.20.Linke.-.Threat.Report.htm)# OpenEMR Threat Modeling Analysis
+
 
 ## Team Members
 
@@ -390,7 +390,9 @@ Verified controls such as active MFA enrollment and TLS/transport protection can
 
 ---
 
-[Uploading 2026.11.20.Linke.-.Threat.Report.htm…]()
+## Full TMT HTML Report
+
+[2026.11.20.Linke.-.Threat.Report.htm](https://github.com/user-attachments/files/35192529/2026.11.20.Linke.-.Threat.Report.htm)# OpenEMR Threat Modeling Analysis
 
 
 
@@ -542,3 +544,8 @@ I liked the idea of understanding the main components of a system and how they c
 
 I was curious to play around with the tool and understand how the configuration attributes of the elements can either mitigate a threat or generate a new one. For example, in my diagram I had a process called patient portal; this element had attributes I could set to yes or no, such as implementing authentication or implementing authorization. When I set them to yes and ran an analysis view, the tool showed more threats, including weak authentication, collision attacks, and replay attacks. I guess part of this assignment is evaluating whether such threats are relevant to your component; otherwise, you spend a great deal of time trying to mitigate threats that may not be relevant.
 
+---
+Jacob
+
+One thing that I discovered was the full complexity of possible threats that are present in systems that look simple. Many of the threats that the Threat Summary tool identified were types of things that I had not heard of before, I had to look up what they were. 
+I found the Getting started with the Threat Modeling Tool page useful as when I first went into analysis view, the program did not generate any threats, and I had to change the objects in my diagram manually, something that I would not have known to do. 
