@@ -491,6 +491,7 @@ I also want to acknowledge the contributions and support of my group members thr
 
 ---
 Mai 
+
 A fun fact about finding possible mitigations for identified threats: I would thank Dr. Hale for this, especially when he opened Modules 13, 14, and 15, which cover CWE. I was curious to open the module and see what it was about, which led me to the CWE website, which I found helpful for understanding different mitigations that can be implemented at different phases of software development. 
 
 I liked the idea of understanding the main components of a system and how they communicate with each other, how the outside world interacts with them, how data flows among system components and external entities, and how security considerations change as trust levels change. 
