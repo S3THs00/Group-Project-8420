@@ -239,10 +239,55 @@ Three automatically generated threats were classified as Not Applicable. Two inv
 
 The Authentication and Authorized Resource Access DFD covers several of the team's previously developed security scenarios. Team members should add findings from their individual analysis that are not already represented above.
 
-## Mai – Nurse Authorization / Patient Record Access
+# DFD 3 – Nurse Authorization / Patient Record Access
 
-**[MAI – ADD YOUR THREAT-MODELING ANALYSIS/FINDINGS HERE. INCLUDE THE RELEVANT SCENARIO, IMPORTANT THREATS, MITIGATIONS, AUTHORIZATION OR PATIENT-ACCESS FINDINGS, AND ANYTHING ELSE FROM YOUR WORK THAT SHOULD APPEAR IN THE FINAL SUBMISSION.]**
+## Scenario Covered
+- Nurse interaction with the OpenEMR portal to access patient records, encounter documents, and  prescriptions
 
+**Primary contributor: Mai Abdalla**
+
+---
+
+## DFD Description
+
+The threat model shows a level 2 diagram of the interaction between the nurse (external interactor/entity) and the OpenEMR Patient Portal. The data flow diagram is based on the use/misuse case scenario.
+
+
+The way the nurse interacts with the portal is by requesting patient information (Over HTTPS); for example, the nurse could retrieve a patient record if that patient is assigned to the nurse. Retrieve encounter documents and display a list of encounter forms that can be added to the encounter document. Some of these encounters may have a sensitivity label, so an additional authorization check should be performed to ensure the nurse has the sensitivity label, in addition to the ability to enter prescription information.
+
+## DFD Diagram 
+![OpenEMR Nurse Authorization DFD](https://github.com/user-attachments/assets/997c30b4-9ced-45fd-9142-ecc3aef8d0e3)
+
+
+## Microsoft Threat Modeling Tool Analysis
+
+Mai's Microsoft Threat Modeling Tool analysis identified **26 potential threats**.
+
+### Threat Summary
+
+| Status | Count |
+|---|---:|
+| Not Started | 0 |
+| Not Applicable | 4 |
+| Needs Investigation | 0 |
+| Mitigation Implemented | 22 |
+| **Total** | **26** |
+
+
+For each of the threats identified by the tool, I tried to provide suggested mitigation strategies by consulting documents such as CWE (Weaknesses in the 2025 CWE Top 25 Most Dangerous Software Weaknesses), which covers weaknesses such as improper input validation, incorrect Authorization, improper access control, and missing authentication, which are weaknesses that OpenEMR suffers from and that allow threats (identified by the tool) to take advantage. The other documentation I used is the OWASP Cheat Sheet Series, which covers good information about the cross-site request forgery identified by the tool.
+
+Some of the threats related to elements interacting outside the trust boundary include cross-site request forgery and spoofing, in which the nurse can pretend to be someone else. In addition to these threats that can emerge outside the boundary, two were interesting: remote code execution and improper data that can be passed to change the flow of the program; both can come from an external entity. 
+
+The CWE documentation provides possible mitigations in the phases of the SDLC: Architecture and Design, implementation, operation, and system configuration. For example, to mitigate remote code execution during the implementation phase, you apply input validation; during system configuration, you assign permissions that prevent the user from accessing or opening files.
+
+Of course, additional mitigations mentioned in the OpenEMR documentation are role-based access control, audit logging, and MFA. Mentioning MFA, pointing to the security requirement we did, this security control needs improvement; what we suggest is to use WebAuthn/FIDO2 authentication methods and force it in the patient portal
+
+---
+
+## Full TMT HTML Report
+[Nurse-Authorization-Full-Report](https://github.com/user-attachments/files/35190523/Nurse_Interaction_Threat_Modeling.htm)
+
+---
 
 # DFD 4 – Patient MFA Access
 
@@ -443,3 +488,12 @@ My main contribution to this project was developing the Patient Multi-Factor Aut
 One of the biggest things I learned from this assignment was how important it is to accurately represent the interactions between different components of a system when developing a threat model. Even small decisions about where to place trust boundaries or how to define data flows can significantly impact the threats identified during analysis. I also gained a better understanding of the additional security considerations involved in implementing MFA, particularly around account recovery, authentication methods, and preventing attackers from bypassing verification requirements.
 
 I also want to acknowledge the contributions and support of my group members throughout this project. They were extremely helpful in walking me through parts of the threat modeling process that I was less familiar with and helping me better understand how to use Microsoft Threat Modeling Tool effectively. I was also on vacation this past weekend, which limited the amount of time I was able to dedicate to the project during that period. My group members were understanding and helped pick up some of the additional work while I was unavailable. I appreciate their willingness to help me work through challenges, answer my questions, and keep the project moving forward. Overall, this assignment helped me develop a stronger understanding of threat modeling while also reinforcing the importance of communication, collaboration, and accountability when working on a team project.
+
+---
+Mai 
+A fun fact about finding possible mitigations for identified threats: I would thank Dr. Hale for this, especially when he opened Modules 13, 14, and 15, which cover CWE. I was curious to open the module and see what it was about, which led me to the CWE website, which I found helpful for understanding different mitigations that can be implemented at different phases of software development. 
+
+I liked the idea of understanding the main components of a system and how they communicate with each other, how the outside world interacts with them, how data flows among system components and external entities, and how security considerations change as trust levels change. 
+
+I was curious to play around with the tool and understand how the configuration attributes of the elements can either mitigate a threat or generate a new one. For example, in my diagram I had a process called patient portal; this element had attributes I could set to yes or no, such as implementing authentication or implementing authorization. When I set them to yes and ran an analysis view, the tool showed more threats, including weak authentication, collision attacks, and replay attacks. I guess part of this assignment is evaluating whether such threats are relevant to your component; otherwise, you spend a great deal of time trying to mitigate threats that may not be relevant.
+
